@@ -21,9 +21,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU_STATE;
 	Font titleFont;
 	Font smallFont;
-	
+
 	public static BufferedImage homeScreen;
-	Car car = new Car(250,500,50,50);
+	Car car = new Car(250, 500, 50, 50);
 	ObjectManager om = new ObjectManager(car);
 
 	public GamePanel() {
@@ -31,18 +31,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Helvetica", Font.PLAIN, 48);
 		smallFont = new Font("Helvetica", Font.PLAIN, 34);
-		
-        try {
 
-            homeScreen = ImageIO.read(this.getClass().getResourceAsStream("homeScreen.gif"));
+		try {
 
-        } catch (IOException e) {
+			homeScreen = ImageIO.read(this.getClass().getResourceAsStream("homeScreen.gif"));
 
-            // TODO Auto-generated catch block
+		} catch (IOException e) {
 
-            e.printStackTrace();
+			// TODO Auto-generated catch block
 
-        }
+			e.printStackTrace();
+
+		}
 	}
 
 	public void updateMenuState() {
@@ -51,9 +51,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void updateGameState() {
 		om.update();
-		
-		if(car.isAlive==false) {
-			currentState=END_STATE;
+
+		if (car.isAlive == false) {
+			currentState = END_STATE;
 		}
 	}
 
@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("WATERED DOWN DRIFT GAME", 280, 180);
 		g.setFont(smallFont);
 		g.drawString("Press ENTER to start", 470, 300);
-		
+
 		g.drawImage(GamePanel.homeScreen, 360, 460, 610, 343, null);
 	}
 
@@ -138,38 +138,41 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if(currentState == END_STATE) {
+			if (currentState == END_STATE) {
 				car = new Car(250, 500, 50, 50);
 				om = new ObjectManager(car);
 			}
-			
+
 			currentState++;
 		}
-	
+
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;
 		}
-		
+
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			car.direction = car.LEFT;
 		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			car.direction = car.RIGHT;
 		}
-		
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			car.direction = car.UP;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			car.direction = car.DOWN;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			car.direction = car.STILL;
+		}
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			car.direction = car.STILL;
-		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-			car.direction = car.STILL;
-		}
+
 	}
-	
 
 }
