@@ -24,7 +24,6 @@ public class ObjectManager {
 		
 		car.draw(g);
 		
-
 	}
 	
 	public int getScore() {

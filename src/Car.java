@@ -42,7 +42,7 @@ public class Car extends GameObject {
 				speedY -= accel;
 			}
 			y += speedY;
-		} else if (direction == DOWN) {
+		} /*else if (direction == DOWN) {
 			speedX = 0;
 			if (speedY <= 4) {
 				speedY += accel;
@@ -52,7 +52,7 @@ public class Car extends GameObject {
 			accel -= 1;
 			speedX -= accel;
 			speedY -= accel;
-		}
+		}*/
 
 	}
 
