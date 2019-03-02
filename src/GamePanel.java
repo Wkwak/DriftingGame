@@ -23,17 +23,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font smallFont;
 
 	public static BufferedImage homeScreen;
-	Car car = new Car(250, 500, 50, 50);
+	Car car = new Car(800, 380, 50, 50);
 	ObjectManager om = new ObjectManager(car);
-		
-	int circleWidth = 700;
-	int circleHeight = 700;
 
-	final int circleX = DriftingGame.width/2 - circleWidth/2;
-	final int circleY = DriftingGame.height/2 - (circleWidth/2+10);
-	
-	ClosingCircle circle = new ClosingCircle(circleX, circleY, circleWidth, circleHeight);
-
+	int score = 0; 
 	
 	public GamePanel() {
 		// TODO Auto-generated constructor stub
@@ -61,9 +54,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void updateGameState() {
 		om.update();
 
-		if (car.isAlive == false) {
+		if (om.getCar().isAlive == false) {
 			currentState = END_STATE;
 		}
+	
 	}
 
 	public void updateEndState() {
@@ -83,8 +77,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawGameState(Graphics g) {
-		circle.draw(g);
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, DriftingGame.width, DriftingGame.height);
 		om.draw(g);
+		//car.isAlive=true; make sure to check on this later
 		
 	}
 
@@ -139,7 +135,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("This");
+		
 	}
 
 	@Override
@@ -168,12 +164,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			car.direction = car.UP;
 		}
-		/*if(e.getkeyCode() == KeyEvent.VK_DOWN) {
+		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 			car.direction = car.DOWN;
 		}
-		if(e.getkeycode() == KeyEvent.VK_STOP) {
-			car.direction = car.STILL;
-		}*/
 
 	}
 
