@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.awt.Graphics2D;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -72,7 +73,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("WATERED DOWN DRIFT GAME", 280, 180);
 		g.setFont(smallFont);
 		g.drawString("Press ENTER to start", 470, 300);
-
+	
 		g.drawImage(GamePanel.homeScreen, 360, 460, 610, 343, null);
 	}
 
@@ -80,6 +81,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, DriftingGame.width, DriftingGame.height);
 		om.draw(g);
+		
 		//car.isAlive=true; make sure to check on this later
 		
 	}
@@ -143,15 +145,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END_STATE) {
+				
 				car = new Car(250, 500, 50, 50);
 				om = new ObjectManager(car);
 			}
 
 			currentState++;
-		}
+			
 
-		if (currentState > END_STATE) {
-			currentState = MENU_STATE;
+			if (currentState > END_STATE) {
+				currentState = MENU_STATE;
+			}
+			//fix the restart later
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -163,9 +168,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			car.direction = car.UP;
-		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-			car.direction = car.DOWN;
 		}
 
 	}
