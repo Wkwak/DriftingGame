@@ -19,44 +19,50 @@ public class Car extends GameObject {
 	int carCenterY;
 	double distanceSquared;
 	double distance;
-	double theta;
+	double targetTheta;
+	double actualTheta;
+	boolean pressed; 
+	double deltaTheta;
 
 	public Car(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		speedX = 1;
-		speedY = 1;
+		speedX = 5;
+		speedY = 5;
 		accel = 0.1;
 	}
 
 	public void update() {
 		super.update();
 		
-		//using vectors change the direction of the object like when you press 
-		//left the car moves more to the left than up
+		//add in a multiplier to the score at the top of the screen 
+		//which changes according to the size of deltaTheta;
+		
+		deltaTheta = Math.abs(targetTheta - actualTheta);
 		
 		carCenterX=x+width/2;
 		carCenterY=y+height/2;
 		
-		if (speedY >= -4) {
-			speedY -= accel;
-		}
-		y += speedY;
+		if (direction == LEFT && pressed) {
+			targetTheta -= 0.1;
+			
+		} else if (direction == RIGHT && pressed) {
+			targetTheta += 0.1;	
 		
-		if (direction == LEFT) {
-			speedY = 0;
-			theta = -1;
-			if (speedX >= -4) {
-				speedX -= accel;
-			}
-			x += speedX;
-		} else if (direction == RIGHT) {
-			speedY = 0;
-			theta = 1;
-			if (speedX <= 4) {
-				speedX += accel;
-			}
-			x += speedX;
 		}
+		
+		if(actualTheta < targetTheta) {
+			actualTheta+=3.8 * (deltaTheta/90);
+		}else if(actualTheta > targetTheta) {
+			actualTheta-=3.8 * (deltaTheta/90);
+		}
+		
+		speedX = Math.sin(actualTheta) * 5;
+		speedY = -Math.cos(actualTheta) * 5;
+		
+		y+=speedY;
+		x+=speedX;
+		
+		
 	}
 	
 	public int getX() {
@@ -90,7 +96,7 @@ public class Car extends GameObject {
 	public void draw(Graphics g) {
 		Graphics2D car2D = (Graphics2D) g.create();
 		
-			car2D.rotate(theta, carCenterX, carCenterY);
+			car2D.rotate(targetTheta, carCenterX, carCenterY);
 			
 			car2D.setColor(Color.BLACK);
 			car2D.fillRoundRect(x, y, 45, 70, 15, 10); // car itself
@@ -106,7 +112,7 @@ public class Car extends GameObject {
 			car2D.fillRect(x + 35, y + 10, 5, 20);
 			car2D.fillRect(x + 5, y + 10, 5, 20);
 			
-			car2D.rotate(theta, carCenterX, carCenterY);
+			car2D.rotate(targetTheta, carCenterX, carCenterY);
 			car2D.dispose();
 	}
 

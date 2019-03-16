@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU_STATE;
 	Font titleFont;
 	Font smallFont;
+	Font gameFont;
 
 	public static BufferedImage homeScreen;
 	Car car = new Car(800, 380, 50, 50);
@@ -34,6 +35,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Helvetica", Font.PLAIN, 48);
 		smallFont = new Font("Helvetica", Font.PLAIN, 34);
+		gameFont = new Font("Times New Roman", Font.ROMAN_BASELINE, 30);
 
 		try {
 
@@ -81,7 +83,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, DriftingGame.width, DriftingGame.height);
 		om.draw(g);
-		
+		g.setFont(gameFont);
+		g.drawString("Score: " + score, 100, 100);
 		//car.isAlive=true; make sure to check on this later
 		
 	}
@@ -144,6 +147,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			car.pressed = false;
 			if (currentState == END_STATE) {
 				
 				car = new Car(250, 500, 50, 50);
@@ -161,13 +165,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			car.direction = car.LEFT;
+			car.pressed = true;
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			car.direction = car.RIGHT;
+			car.pressed = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			car.direction = car.UP;
+			car.pressed = true;
 		}
 
 	}
@@ -175,7 +182,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		car.pressed = false;
 	}
 
 }
