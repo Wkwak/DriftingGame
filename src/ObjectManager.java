@@ -15,9 +15,18 @@ public class ObjectManager {
 	final int circleX = DriftingGame.width/2 - circleWidth/2;
 	final int circleY = DriftingGame.height/2 - (circleWidth/2+10);
 	
+	
+	int r, g, b;
+	int r1;
+	int r2;
+	int r3;
+	
+	
+	
 	Car car;
 	ClosingCircle circle = new ClosingCircle(circleX, circleY, circleWidth, circleHeight);
-
+	FinishLine line = new FinishLine(690, 360, 300, 2);
+	
 	public ObjectManager(Car car) {
 		this.car = car; 
 	}
@@ -28,8 +37,8 @@ public class ObjectManager {
 	}
 
 	public void draw(Graphics g) {
-		
 		circle.draw(g);
+		line.draw(g);
 		car.draw(g);
 		
 	}
@@ -48,6 +57,29 @@ public class ObjectManager {
 	    }
 	    else {
 	    	car.isAlive = false;
+	    }
+	    if(car.collisionBox.intersects(line.collisionBox)) {
+	    	score++;
+	    	car.speedX+=100;
+	    	car.speedY+=100; //when doing this the car momentarily switches speed 
+	    	System.out.println(car.speedX);
+	    	
+	    	r1 = (int) Math.random()*255;
+	    	r2 = (int) Math.random()*255;
+	    	r3 = (int) Math.random()*255;
+	    	
+	    	r+=r1;
+	    	g+=r2;
+	    	b+=r3;
+	    	//colors are wack 
+	    	if(r>=255) {
+	    		r=r%20;
+	    	}else if (g>=255) {
+	    		g=g%20;
+	    	}else if (b >=255) {
+	    		b=b%20;
+	    	}
+	    	circle.setColor(r, g, b);
 	    }
 	}
 }

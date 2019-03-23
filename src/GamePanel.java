@@ -27,8 +27,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage homeScreen;
 	Car car = new Car(800, 380, 50, 50);
 	ObjectManager om = new ObjectManager(car);
-
-	int score = 0; 
 	
 	public GamePanel() {
 		// TODO Auto-generated constructor stub
@@ -56,6 +54,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void updateGameState() {
 		om.update();
+		om.checkCollision();
 
 		if (om.getCar().isAlive == false) {
 			currentState = END_STATE;
@@ -84,7 +83,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, DriftingGame.width, DriftingGame.height);
 		om.draw(g);
 		g.setFont(gameFont);
-		g.drawString("Score: " + score, 100, 100);
+		g.drawString("Score: " + om.score, 100, 100);
 		//car.isAlive=true; make sure to check on this later
 		
 	}
@@ -97,7 +96,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.drawString("Game Over", 112, 150);
 		g.setFont(smallFont);
-		g.drawString("Your drift score was a total of " + "!X!" + " points", 50, 320);
+		g.drawString("Your drift score was a total of " + om.score + " points", 50, 320);
 		g.drawString("Press ENTER to restart", 60, 500);
 	}
 
