@@ -25,6 +25,7 @@ public class ClosingCircle extends GameObject{
 	
 	public void setColor(int r, int g, int b) {
 		color = new Color (r, g, b);
+		//System.out.println(r + " " + g + " " + b);
 	}
 	
 }

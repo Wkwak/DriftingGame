@@ -14,12 +14,14 @@ public class ObjectManager {
 
 	final int circleX = DriftingGame.width/2 - circleWidth/2;
 	final int circleY = DriftingGame.height/2 - (circleWidth/2+10);
+	boolean isHittingLine = false;
+	int differentScore = 0;
 	
 	
 	int r, g, b;
-	int r1;
-	int r2;
-	int r3;
+	int r1 = 255;
+	int r2 = 165;
+	int r3 = 0;
 	
 	
 	
@@ -52,6 +54,8 @@ public class ObjectManager {
 	}
 	
 	public void checkCollision() {
+		
+		System.out.println(car.getDriftScore());
 	    if(car.getDistanceFromCenter()<=circle.width/2 && car.getDistanceFromCenter()>=50){
              car.isAlive = true;
 	    }
@@ -59,27 +63,22 @@ public class ObjectManager {
 	    	car.isAlive = false;
 	    }
 	    if(car.collisionBox.intersects(line.collisionBox)) {
+	    	isHittingLine = true;
 	    	score++;
 	    	car.speedX+=100;
 	    	car.speedY+=100; //when doing this the car momentarily switches speed 
-	    	System.out.println(car.speedX);
+	    	//System.out.println(car.speedX);
+	     	r1 = (int) (Math.random()*255);
+	    	r2 = (int) (Math.random()*255);
+	    	r3 = (int) (Math.random()*255);
 	    	
-	    	r1 = (int) Math.random()*255;
-	    	r2 = (int) Math.random()*255;
-	    	r3 = (int) Math.random()*255;
-	    	
-	    	r+=r1;
-	    	g+=r2;
-	    	b+=r3;
-	    	//colors are wack 
-	    	if(r>=255) {
-	    		r=r%20;
-	    	}else if (g>=255) {
-	    		g=g%20;
-	    	}else if (b >=255) {
-	    		b=b%20;
-	    	}
-	    	circle.setColor(r, g, b);
+	    } 
+	    if(isHittingLine == false) {
+	    	circle.setColor(r1, r2, r3);	
+	    	score+=car.getDriftScore();
+	    }
+	    else {
+	    	isHittingLine=false;	    	
 	    }
 	}
 }

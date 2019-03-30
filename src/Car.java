@@ -23,6 +23,7 @@ public class Car extends GameObject {
 	double actualTheta;
 	boolean pressed; 
 	double deltaTheta;
+	int driftScore;
 
 	public Car(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -91,6 +92,12 @@ public class Car extends GameObject {
 		distanceSquared = Math.pow((double)carCenterX-DriftingGame.width/2, 2) + (Math.pow((double)carCenterY-DriftingGame.height/2, 2));
 		distance = Math.sqrt(distanceSquared);
 		return distance;
+	}
+	
+	public int getDriftScore() {
+		driftScore = 0;
+		driftScore+=deltaTheta;
+		return driftScore;
 	}
 
 	public void draw(Graphics g) {
