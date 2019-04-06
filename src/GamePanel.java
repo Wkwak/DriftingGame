@@ -98,6 +98,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(smallFont);
 		g.drawString("Your drift score was a total of " + om.score + " points", 50, 320);
 		g.drawString("Press ENTER to restart", 60, 500);
+		
 	}
 
 	@Override

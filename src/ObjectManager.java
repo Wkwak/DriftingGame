@@ -17,14 +17,12 @@ public class ObjectManager {
 	boolean isHittingLine = false;
 	int differentScore = 0;
 	
-	
 	int r, g, b;
 	int r1 = 255;
 	int r2 = 165;
 	int r3 = 0;
 	
-	
-	
+	Patterns patterns = new Patterns(0,0, 10, 10);
 	Car car;
 	ClosingCircle circle = new ClosingCircle(circleX, circleY, circleWidth, circleHeight);
 	FinishLine line = new FinishLine(690, 360, 300, 2);
@@ -37,9 +35,10 @@ public class ObjectManager {
 		car.update();
 		checkCollision();
 	}
-
+	
 	public void draw(Graphics g) {
 		circle.draw(g);
+		patterns.draw(g);
 		line.draw(g);
 		car.draw(g);
 		
@@ -64,11 +63,12 @@ public class ObjectManager {
 	    }
 	    if(car.collisionBox.intersects(line.collisionBox)) {
 	    	isHittingLine = true;
+	 
 	    	score++;
 	    	car.speedX+=100;
 	    	car.speedY+=100; //when doing this the car momentarily switches speed 
 	    	//System.out.println(car.speedX);
-	     	r1 = (int) (Math.random()*255);
+	    r1 = (int) (Math.random()*255);
 	    	r2 = (int) (Math.random()*255);
 	    	r3 = (int) (Math.random()*255);
 	    	
@@ -78,7 +78,7 @@ public class ObjectManager {
 	    	score+=car.getDriftScore();
 	    }
 	    else {
-	    	isHittingLine=false;	    	
+	    	isHittingLine=false;	   
 	    }
 	}
 }
