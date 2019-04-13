@@ -15,12 +15,14 @@ public class ObjectManager {
 	final int circleX = DriftingGame.width/2 - circleWidth/2;
 	final int circleY = DriftingGame.height/2 - (circleWidth/2+10);
 	boolean isHittingLine = false;
+	boolean changeBackground = false;
 	int differentScore = 0;
 	
 	int r, g, b;
 	int r1 = 255;
 	int r2 = 165;
 	int r3 = 0;
+	int modulo; 
 	
 	Patterns patterns = new Patterns(0,0, 10, 10);
 	Car car;
@@ -38,7 +40,7 @@ public class ObjectManager {
 	
 	public void draw(Graphics g) {
 		circle.draw(g);
-		patterns.draw(g);
+		patterns.draw(g, modulo);
 		line.draw(g);
 		car.draw(g);
 		
@@ -63,19 +65,28 @@ public class ObjectManager {
 	    }
 	    if(car.collisionBox.intersects(line.collisionBox)) {
 	    	isHittingLine = true;
-	 
-	    	score++;
-	    	car.speedX+=100;
-	    	car.speedY+=100; //when doing this the car momentarily switches speed 
-	    	//System.out.println(car.speedX);
-	    r1 = (int) (Math.random()*255);
-	    	r2 = (int) (Math.random()*255);
-	    	r3 = (int) (Math.random()*255);
+	    	if(!changeBackground) {
+	    		r1 = (int) (Math.random()*255);
+		    	r2 = (int) (Math.random()*255);
+		    	r3 = (int) (Math.random()*255);
+		    	modulo = (int) (Math.random()*8 + 4);
+		    	
+		    	circle.setColor(r1, r2, r3);	
+		    	changeBackground = true;
+		    	score+=car.getDriftScore();
+	    	}
 	    	
 	    } 
+	    if(patterns.intersects(car)) {
+	    	car.isAlive = false;
+	    }
+	    	
+	    	
 	    if(isHittingLine == false) {
-	    	circle.setColor(r1, r2, r3);	
-	    	score+=car.getDriftScore();
+	    	
+	    	changeBackground = false;
+	    	
+	    	
 	    }
 	    else {
 	    	isHittingLine=false;	   
