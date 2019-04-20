@@ -25,7 +25,7 @@ public class Patterns extends GameObject{
 		g.setColor(clr);
 		for(int row = 0; row < 20; row++) {
 			for(int col = 0; col < 20; col++) {
-				if(row%modulo==0 && col%modulo==0) { //make sure to use a variable to change this 
+				if(row%modulo==0 && col%modulo==0) { 
 					g.fillRect(row*DriftingGame.width/20, col*DriftingGame.height/20, width, height);
 					xItems++;
 					yItems++;
@@ -36,12 +36,12 @@ public class Patterns extends GameObject{
 	}
 	
 	public boolean intersects(Car c) {
-		boolean intersection = false;
+		/*boolean intersection = false;
 		for(int i = 0; i <rectangles.length; i++) {
-			if (c.collisionBox.intersects()) { //row*DriftingGame.width/20 + this.width/2, col*DriftingGame.height/20 + this.height/2
+			if (c.collisionBox) { 
 				intersection = true;
 			}
-		}
-		return intersection;
+		}*/
+		return false;//intersection;
 	}
 }

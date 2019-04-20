@@ -95,9 +95,12 @@ public class Car extends GameObject {
 	}
 	
 	public int getDriftScore() {
-		driftScore = 0;
 		driftScore+=deltaTheta;
 		return driftScore;
+	}
+	
+	public void setDriftScore(int restart) {
+		driftScore = 0;
 	}
 
 	public void draw(Graphics g) {
