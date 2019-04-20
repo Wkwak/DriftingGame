@@ -75,6 +75,7 @@ public class ObjectManager {
 		    	changeBackground = true;
 		    	score+=car.getDriftScore();
 		    	car.setDriftScore(0);
+		    
 	    	}
 	    	
 	    } 
