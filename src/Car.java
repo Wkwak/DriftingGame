@@ -95,7 +95,10 @@ public class Car extends GameObject {
 	}
 	
 	public int getDriftScore() {
-		driftScore+=deltaTheta;
+		if(getDistanceFromCenter()<150) { //instead of distance from center try and implement a timer in the future 
+										//subtract points for each second passed before crossing the line 
+			driftScore+=deltaTheta;
+		}
 		return driftScore;
 	}
 	

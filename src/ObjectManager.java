@@ -22,7 +22,7 @@ public class ObjectManager {
 	int r1 = 255;
 	int r2 = 165;
 	int r3 = 0;
-	int modulo = (int) Math.max((Math.random()*8) + 4, 1);
+	int modulo = (int) (Math.random()*4) + 5;
 	
 	Patterns patterns = new Patterns(0,0, 10, 10);
 	Car car;
@@ -57,6 +57,7 @@ public class ObjectManager {
 	public void checkCollision() {
 		
 		System.out.println(car.getDriftScore());
+	
 	    if(car.getDistanceFromCenter()<=circle.width/2 && car.getDistanceFromCenter()>=50){
              car.isAlive = true;
 	    }
@@ -69,13 +70,13 @@ public class ObjectManager {
 	    		r1 = (int) (Math.random()*255);
 		    	r2 = (int) (Math.random()*255);
 		    	r3 = (int) (Math.random()*255);
-		    	modulo = (int) Math.max((Math.random()*8) + 4, 1);
+		    	modulo = (int) Math.max((Math.random()*6) + 4, 1);
 		    	
 		    	circle.setColor(r1, r2, r3);	
 		    	changeBackground = true;
 		    	score+=car.getDriftScore();
 		    	car.setDriftScore(0);
-		    
+		    	patterns.coords.clear();
 	    	}
 	    	
 	    } 

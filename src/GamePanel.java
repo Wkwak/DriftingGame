@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font gameFont;
 
 	public static BufferedImage homeScreen;
-	Car car = new Car(800, 380, 50, 50);
+	Car car = new Car(800, 305, 50, 50);
 	ObjectManager om = new ObjectManager(car);
 	
 	public GamePanel() {
@@ -84,7 +84,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		om.draw(g);
 		g.setFont(gameFont);
 		g.drawString("Score: " + om.score, 100, 100);
-		//car.isAlive=true; make sure to check on this later
+		car.isAlive=true; 
 		
 	}
 
@@ -150,7 +150,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			car.pressed = false;
 			if (currentState == END_STATE) {
 				
-				car = new Car(250, 500, 50, 50);
+				car = new Car(800, 305, 50, 50);
 				om = new ObjectManager(car);
 			}
 

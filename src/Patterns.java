@@ -30,22 +30,26 @@ public class Patterns extends GameObject{
 				if(row%modulo==0 && col%modulo==0) { 
 					int xPos = row*DriftingGame.width/20;
 					int yPos = col*DriftingGame.height/20;
+						
 					g.fillRect(xPos, yPos, width, height);
-					
+							
 					coords.add(new ArrayList<Integer>());
 					coords.get(items).add(xPos);
 					coords.get(items).add(yPos);
-					items++; 
+					items++;
 				}
 			}
 		}
+		items = 0;
 	}
 	
 	public boolean intersects(Car c) {
 		boolean intersection = false;
 		for(int i = 0; i <coords.size(); i++) {
-			if (c.collisionBox.contains(coords.get(i).get(i), coords.get(i).get(i+1))) { 
-				intersection = true;
+			if(coords.get(i).size()>1) {
+				if (c.collisionBox.contains(coords.get(i).get(0) + width/2, coords.get(i).get(1) + height/2)) { 
+					intersection = true;
+				}
 			}
 		}
 		return intersection;
