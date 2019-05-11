@@ -1,7 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Polygon;
+import java.util.ArrayList;
 
 public class Car extends GameObject {
 
@@ -24,6 +26,14 @@ public class Car extends GameObject {
 	boolean pressed; 
 	double deltaTheta;
 	int driftScore;
+	Point currentPos = new Point();
+	
+	int dCounter = 0; 
+	
+	double distanceFromPrevious; 
+	
+	ArrayList<Point> carPosition = new ArrayList<Point>();
+	ArrayList<Double> distances = new ArrayList<Double>();
 
 	public Car(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -39,6 +49,18 @@ public class Car extends GameObject {
 		//which changes according to the size of deltaTheta;
 		
 		deltaTheta = Math.abs(targetTheta - actualTheta);
+		
+		currentPos.x = this.carCenterX;
+		currentPos.y  = this.carCenterY; 
+		carPosition.add(currentPos); //adds the position of each frame 
+		
+		
+		if(dCounter>1) {
+			distanceFromPrevious = carPosition.get(dCounter).distance(carPosition.get(dCounter-1));
+			distances.add(distanceFromPrevious); // adding the distances from the previous point in the arrayList 
+		}
+		
+		dCounter++;
 		
 		carCenterX=x+width/2;
 		carCenterY=y+height/2;
@@ -62,8 +84,7 @@ public class Car extends GameObject {
 		
 		y+=speedY;
 		x+=speedX;
-		
-		
+	
 	}
 	
 	public int getX() {
@@ -88,16 +109,20 @@ public class Car extends GameObject {
 		this.carCenterY = y;
 	}
 	
+	
 	public double getDistanceFromCenter() {
 		distanceSquared = Math.pow((double)carCenterX-DriftingGame.width/2, 2) + (Math.pow((double)carCenterY-DriftingGame.height/2, 2));
 		distance = Math.sqrt(distanceSquared);
 		return distance;
 	}
 	
-	public int getDriftScore() {
-		if(getDistanceFromCenter()<150) { //instead of distance from center try and implement a timer in the future 
-										//subtract points for each second passed before crossing the line 
-			driftScore+=deltaTheta;
+	public int getDriftScore(ArrayList distance) {
+		for(int i = 0; i < 30; i++) {
+			if(distance.get(i+1)>distance.get(i)) { //create a list of x, y positions and check the next frames set of points 
+				   // create another array that holds the distances 
+				   // if the distance at one point ends up being shorter than the previous then don't add points
+				driftScore+=deltaTheta;
+			}
 		}
 		return driftScore;
 	}
