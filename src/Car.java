@@ -28,12 +28,12 @@ public class Car extends GameObject {
 	int driftScore;
 	Point currentPos = new Point();
 	
-	int dCounter = 0; 
-	
 	double distanceFromPrevious; 
 	
 	ArrayList<Point> carPosition = new ArrayList<Point>();
 	ArrayList<Double> distances = new ArrayList<Double>();
+	
+	int dCounter = distances.size()-2;
 
 	public Car(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -55,12 +55,22 @@ public class Car extends GameObject {
 		carPosition.add(currentPos); //adds the position of each frame 
 		
 		
-		if(dCounter>1) {
-			distanceFromPrevious = carPosition.get(dCounter).distance(carPosition.get(dCounter-1));
+		
+		dCounter = distances.size() - 1;
+		
+		if(dCounter>=1) { //how would dCounter be >= 1 if the size of distances does not increase
+			distanceFromPrevious = carPosition.get(dCounter).distance(carPosition.get(0));
 			distances.add(distanceFromPrevious); // adding the distances from the previous point in the arrayList 
+			
 		}
 		
-		dCounter++;
+		while(distances.size()>30) {
+			distances.remove(0);
+		}
+		
+		while(carPosition.size()>30) {
+			carPosition.remove(0);
+		}
 		
 		carCenterX=x+width/2;
 		carCenterY=y+height/2;
@@ -116,9 +126,9 @@ public class Car extends GameObject {
 		return distance;
 	}
 	
-	public int getDriftScore(ArrayList distance) {
-		for(int i = 0; i < 30; i++) {
-			if(distance.get(i+1)>distance.get(i)) { //create a list of x, y positions and check the next frames set of points 
+	public int getDriftScore() {
+		for(int i = 0; i < distances.size() - 1; i++) {
+			if(distances.get(i)<distances.get(i+1)) { //create a list of x, y positions and check the next frames set of points 
 				   // create another array that holds the distances 
 				   // if the distance at one point ends up being shorter than the previous then don't add points
 				driftScore+=deltaTheta;
