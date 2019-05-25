@@ -33,13 +33,15 @@ public class Car extends GameObject {
 	ArrayList<Point> carPosition = new ArrayList<Point>();
 	ArrayList<Double> distances = new ArrayList<Double>();
 	
-	int dCounter = distances.size()-2;
+	int pCounter = carPosition.size()-2;
 
 	public Car(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		speedX = 5;
 		speedY = 5;
 		accel = 0.1;
+		carCenterX=x+width/2;
+		carCenterY=y+height/2;
 	}
 
 	public void update() {
@@ -52,23 +54,28 @@ public class Car extends GameObject {
 		
 		currentPos.x = this.carCenterX;
 		currentPos.y  = this.carCenterY; 
-		carPosition.add(currentPos); //adds the position of each frame 
+		int tempX = carCenterX;
+		int tempY = currentPos.y;
+		Point p3 = new Point(tempX, tempY);
+		carPosition.add(p3); //adds the position of each frame 
 		
+	
 		
+		pCounter = carPosition.size() - 1;
 		
-		dCounter = distances.size() - 1;
-		
-		if(dCounter>=1) { //how would dCounter be >= 1 if the size of distances does not increase
-			distanceFromPrevious = carPosition.get(dCounter).distance(carPosition.get(0));
+		if(pCounter>=1) { //how would dCounter be >= 1 if the size of distances does not increase
+			System.out.println(currentPos + " - " + carPosition.get(0));
+			distanceFromPrevious = currentPos.distance(carPosition.get(0));
+			//System.out.println(distanceFromPrevious);
 			distances.add(distanceFromPrevious); // adding the distances from the previous point in the arrayList 
 			
 		}
 		
-		while(distances.size()>30) {
+		while(distances.size()>100) {
 			distances.remove(0);
 		}
 		
-		while(carPosition.size()>30) {
+		while(carPosition.size()>100) {
 			carPosition.remove(0);
 		}
 		
@@ -127,13 +134,20 @@ public class Car extends GameObject {
 	}
 	
 	public int getDriftScore() {
-		for(int i = 0; i < distances.size() - 1; i++) {
-			if(distances.get(i)<distances.get(i+1)) { //create a list of x, y positions and check the next frames set of points 
-				   // create another array that holds the distances 
-				   // if the distance at one point ends up being shorter than the previous then don't add points
-				driftScore+=deltaTheta;
+			if(distances.size()>0) {
+				System.out.println(distances.get(distances.size()-1)+ " - " + distances.get(0));
+				boolean greaterThanAll = true;
+				for(int i = 0; i < distances.size(); i++) {
+					if(distances.get(distances.size()-1)<distances.get(i)) { //create a list of x, y positions and check the next frames set of points 
+						 // create another array that holds the distances 
+						// if the distance at one point ends up being shorter than the previous then don't add points
+					greaterThanAll = false;
+				}
+				}
+				if(greaterThanAll == true) {
+					driftScore+=deltaTheta;
+				}
 			}
-		}
 		return driftScore;
 	}
 	
