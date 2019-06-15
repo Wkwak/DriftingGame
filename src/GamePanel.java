@@ -74,6 +74,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("WATERED DOWN DRIFT GAME", 280, 180);
 		g.setFont(smallFont);
 		g.drawString("Press ENTER to start", 470, 300);
+		g.drawString("Press LEFT and RIGHT arrow keys to move the car", 250, 400);
 	
 		g.drawImage(GamePanel.homeScreen, 360, 460, 610, 343, null);
 	}
@@ -94,10 +95,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
-		g.drawString("Game Over", 112, 150);
+		g.drawString("Game Over", 510, 150);
 		g.setFont(smallFont);
-		g.drawString("Your drift score was a total of " + om.score + " points", 50, 320);
-		g.drawString("Press ENTER to restart", 60, 500);
+		g.drawString("Your drift score was a total of " + om.score + " points", 350, 320);
+		g.drawString("Press ENTER to restart", 460, 500);
 		
 	}
 

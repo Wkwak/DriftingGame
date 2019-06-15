@@ -47,9 +47,6 @@ public class Car extends GameObject {
 	public void update() {
 		super.update();
 		
-		//add in a multiplier to the score at the top of the screen 
-		//which changes according to the size of deltaTheta;
-		
 		deltaTheta = Math.abs(targetTheta - actualTheta);
 		
 		currentPos.x = this.carCenterX;
@@ -64,9 +61,7 @@ public class Car extends GameObject {
 		pCounter = carPosition.size() - 1;
 		
 		if(pCounter>=1) { //how would dCounter be >= 1 if the size of distances does not increase
-			System.out.println(currentPos + " - " + carPosition.get(0));
 			distanceFromPrevious = currentPos.distance(carPosition.get(0));
-			//System.out.println(distanceFromPrevious);
 			distances.add(distanceFromPrevious); // adding the distances from the previous point in the arrayList 
 			
 		}
@@ -135,7 +130,6 @@ public class Car extends GameObject {
 	
 	public int getDriftScore() {
 			if(distances.size()>0) {
-				System.out.println(distances.get(distances.size()-1)+ " - " + distances.get(0));
 				boolean greaterThanAll = true;
 				for(int i = 0; i < distances.size(); i++) {
 					if(distances.get(distances.size()-1)<distances.get(i)) { //create a list of x, y positions and check the next frames set of points 

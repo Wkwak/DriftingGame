@@ -7,7 +7,7 @@ import java.util.Random;
 public class Patterns extends GameObject{
 	
 	Color clr; 
-	private int modulo; 
+	private int modulo = 7; 
 	int items = 0;
 	ArrayList<ArrayList<Integer>> coords = new ArrayList<ArrayList<Integer>>();
 	

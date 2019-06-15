@@ -70,7 +70,7 @@ public class ObjectManager {
 	    		r1 = (int) (Math.random()*255);
 		    	r2 = (int) (Math.random()*255);
 		    	r3 = (int) (Math.random()*255);
-		    	modulo = (int) Math.max((Math.random()*6) + 4, 1);
+		    	modulo = (int) Math.max((Math.random()*5) + 5, 1);
 		    	
 		    	circle.setColor(r1, r2, r3);	
 		    	changeBackground = true;
